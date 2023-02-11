@@ -13,6 +13,11 @@ CLASS := $(CLASSPATH_DIR)/$(NAMESPACE_SLASHES).class
 LIBRARY := $(LIB_DIR)/lib$(NAMESPACE_UNDERSCORES).dylib
 HEADER := $(INCLUDE_DIR)/$(NAMESPACE_UNDERSCORES).h
 
+MACOS_VER_NUM			:= $(shell bash -c 'cat <(sw_vers -productVersion) <(xcrun --show-sdk-version) | sort -V | head -1')
+MACOS_VER_MAJOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f1 -d.)
+MACOS_VER_MINOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f2 -d.)
+export MACOSX_DEPLOYMENT_TARGET := $(MACOS_VER_MAJOR).$(MACOS_VER_MINOR)
+
 .PHONY: build run header class library clean
 .PRECIOUS: $(OBJ_DIR)/%.o
 
