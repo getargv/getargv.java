@@ -3,3 +3,5 @@ compile_commands.json
 /include
 /classpath
 *.log
+.cache
+/obj

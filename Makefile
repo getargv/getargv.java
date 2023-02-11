@@ -14,12 +14,13 @@ LIBRARY := $(LIB_DIR)/lib$(NAMESPACE_UNDERSCORES).dylib
 HEADER := $(INCLUDE_DIR)/$(NAMESPACE_UNDERSCORES).h
 
 .PHONY: build run header class library clean
+.PRECIOUS: $(OBJ_DIR)/%.o
 
 $(LIB_DIR)/lib%.dylib: $(OBJ_DIR)/%.o $(LIB_DIR)
-	$(CC) -dynamiclib -o $@ $< -lc -lgetargv
+	$(CC) -dynamiclib -g -o $@ $< -lgetargv
 
 $(OBJ_DIR)/%.o: src/%.c $(HEADER) $(OBJ_DIR)
-	$(CC) -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin -I$(INCLUDE_DIR) $< -o $@
+	$(CC) -c -g -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin -I$(INCLUDE_DIR) $< -o $@
 
 $(HEADER): ./$(NAMESPACE_SLASHES).java $(INCLUDE_DIR)
 	$(JAVAC) -d $(CLASSPATH_DIR) -h $(INCLUDE_DIR) $<
