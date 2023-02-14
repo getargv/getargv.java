@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+Throwing can itself fail in many annoying ways so I extracted the logic to
+here and fatal if the madness gets too bad
+ */
 void throw(JNIEnv * env, char *fqn, char *msg) {
   jclass IOException = (*env)->FindClass(env, fqn);
   if (IOException == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
@@ -66,8 +70,7 @@ Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
     (*env)->SetByteArrayRegion(env, b, 0, len, result.argv[i]);
     (*env)->SetObjectArrayElement(env, array, i, b);
   }
-  free(result.argv);
-  free(result.buffer);
+  free_ArgvArgcResult(&result);
 
   return array;
 }
@@ -82,7 +85,9 @@ JNIEXPORT jbyteArray JNICALL Java_cam_narzt_getargv_Getargv_get_1argv_1of_1pid(
     throw(env, "Ljava/io/IOException", strerror(errno));
     return NULL;
   } else {
-    size_t len = result.start_pointer == result.end_pointer? 0 : result.end_pointer - result.start_pointer + 1;
+    size_t len = result.start_pointer == result.end_pointer
+                     ? 0
+                     : result.end_pointer - result.start_pointer + 1;
     jbyteArray bytes = (*env)->NewByteArray(env, len);
 
     if (bytes == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
@@ -91,7 +96,7 @@ JNIEXPORT jbyteArray JNICALL Java_cam_narzt_getargv_Getargv_get_1argv_1of_1pid(
       (*env)->SetByteArrayRegion(env, bytes, 0, len, result.start_pointer);
     }
 
-    free(result.buffer);
+    free_ArgvResult(&result);
 
     return bytes;
   }
