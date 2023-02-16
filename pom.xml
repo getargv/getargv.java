@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cam.narzt.getargv</groupId>
+  <artifactId>cam_narzt_getargv_Getargv</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Getargv</name>
+  <url>https://getargv.narzt.cam</url>
+  <description>JNI bindings for libgetargv</description>
+  <inceptionYear>2023</inceptionYear>
+
+  <organization>
+    <name>Getargv</name>
+    <url>https://github.com/getargv</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>CamJN</id>
+      <name>Camden Narzt</name>
+      <email>getargv@narzt.cam</email>
+      <url>https://getargv.narzt.cam</url>
+      <organization>Getargv</organization>
+      <organizationUrl>https://https://github.com/getargv</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>America/Edmonton</timezone>
+      <properties>
+        <picUrl>https://</picUrl>
+      </properties>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/getargv/getargv.java/issues/</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Github</system>
+    <url>https://github.com/getargv/getargv.java/actions</url>
+    <notifiers>
+      <notifier>
+        <type>mail</type>
+        <sendOnError>true</sendOnError>
+        <sendOnFailure>true</sendOnFailure>
+        <sendOnSuccess>false</sendOnSuccess>
+        <sendOnWarning>false</sendOnWarning>
+        <configuration><address>getargv@narzt.cam</address></configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+
+  <scm>
+    <connection>scm:git:https://github.com/getargv/getargv.java</connection>
+    <developerConnection>scm:git:https://github.com/getargv/getargv.java</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/getargv/getargv.java</url>
+  </scm>
+
+
+  <licenses>
+    <license>
+      <name>BSD-3-Clause</name>
+      <url>https://opensource.org/license/bsd-3-clause</url>
+      <distribution>repo</distribution>
+      <comments>Allows: Commercial use, Distribution, Modification, and Private use; License and copyright notice required</comments>
+    </license>
+  </licenses>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>19</maven.compiler.source>
+    <maven.compiler.target>19</maven.compiler.target>
+    <maven.compiler.release>19</maven.compiler.release>
+    <fqn_underscores>cam_narzt_getargv_Getargv</fqn_underscores>
+    <fqn_dots>cam.narzt.getargv.Getargv</fqn_dots>
+    <exec.mainClass>${fqn_dots}</exec.mainClass>
+    <fqn_slashes>cam/narzt/getargv/Getargv</fqn_slashes>
+    <lib_name>lib${fqn_underscores}.dylib</lib_name>
+    <javah_cli_args>-h ${project.build.directory}/native/include -d ${project.build.directory}/classes ${basedir}/src/main/java/${fqn_slashes}.java</javah_cli_args>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.9.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.9.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!--pluginManagement-->
+    <plugins>
+      <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.2.0</version>
+      </plugin>
+      <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <target>
+            <delete dir="${project.build.directory}/native/lib"/>
+            <mkdir dir="${project.build.directory}/native/lib"/>
+          </target>
+        </configuration>
+        <executions>
+          <execution>
+            <id>createLibDir</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>1.0-alpha-11</version>
+        <extensions>true</extensions>
+        <configuration>
+          <jdkIncludePath>${java.home}/include</jdkIncludePath>
+          <sources>
+            <source>
+              <directory>${basedir}/src/main/native</directory>
+              <fileNames>
+                <fileName>${fqn_underscores}.c</fileName>
+              </fileNames>
+            </source>
+            <source>
+              <directory>${project.build.directory}/native/include</directory>
+            </source>
+          </sources>
+
+          <compilerProvider>generic</compilerProvider>
+          <compilerExecutable>clang</compilerExecutable>
+          <compilerStartOptions>
+            <compilerStartOption>-fPIC</compilerStartOption>
+          </compilerStartOptions>
+          <compilerMiddleOptions>
+            <compilerMiddleOption>-g</compilerMiddleOption>
+          </compilerMiddleOptions>
+          <compilerEndOptions>
+            <compilerEndOption>-I</compilerEndOption>
+            <compilerEndOption>${java.home}/include</compilerEndOption>
+            <compilerEndOption>-I</compilerEndOption>
+            <compilerEndOption>${java.home}/include/darwin</compilerEndOption>
+          </compilerEndOptions>
+
+          <linkerExecutable>clang</linkerExecutable>
+          <linkerStartOptions>
+            <linkerStartOption>-dynamiclib</linkerStartOption>
+          </linkerStartOptions>
+          <linkerMiddleOptions>
+            <linkerMiddleOption>-g</linkerMiddleOption>
+          </linkerMiddleOptions>
+          <linkerEndOptions>
+            <linkerEndOption>-lgetargv</linkerEndOption>
+          </linkerEndOptions>
+          <linkerOutputDirectory>${project.build.directory}/native/lib</linkerOutputDirectory>
+          <linkerFinalName>lib${fqn_underscores}</linkerFinalName>
+          <linkerFinalNameExt>dylib</linkerFinalNameExt>
+        </configuration>
+        <executions>
+          <execution>
+            <id>dylib</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>initialize</goal>
+              <goal>compile</goal>
+              <goal>link</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <executable>javac</executable>
+          <commandlineArgs>${javah_cli_args}</commandlineArgs>
+          <useMavenLogger>true</useMavenLogger>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-native-header</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M9</version>
+        <configuration>
+          <argLine>-Djava.library.path=${project.build.directory}/native/lib</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M5</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.4.2</version>
+      </plugin>
+    </plugins>
+    <!--/pluginManagement-->
+  </build>
+</project>
