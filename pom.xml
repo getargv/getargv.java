@@ -79,8 +79,7 @@
     <maven.compiler.target>19</maven.compiler.target>
     <maven.compiler.release>19</maven.compiler.release>
     <fqn_underscores>cam_narzt_getargv_Getargv</fqn_underscores>
-    <fqn_dots>cam.narzt.getargv.Getargv</fqn_dots>
-    <exec.mainClass>${fqn_dots}</exec.mainClass>
+    <exec.mainClass>${project.groupId}.Main</exec.mainClass>
     <fqn_slashes>cam/narzt/getargv/Getargv</fqn_slashes>
     <lib_name>lib${fqn_underscores}.dylib</lib_name>
     <javah_cli_args>-h ${project.build.directory}/native/include -d ${project.build.directory}/classes ${basedir}/src/main/java/${fqn_slashes}.java</javah_cli_args>
