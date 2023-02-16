@@ -8,18 +8,18 @@
 Throwing can itself fail in many annoying ways so I extracted the logic to
 here and fatal if the madness gets too bad
  */
-void throw(JNIEnv * env, char *fqn, char *msg) {
+void throw(JNIEnv * env, char *fqn, const char *msg) {
   jclass ExceptionClass = (*env)->FindClass(env, fqn);
   if (ExceptionClass == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
     // error while looking up error type
     jclass TypeNotPresentException =
-        (*env)->FindClass(env, "Ljava/lang/TypeNotPresentException");
+        (*env)->FindClass(env, "java/lang/TypeNotPresentException");
     if (TypeNotPresentException == NULL &&
         (*env)->ExceptionCheck(env) == JNI_FALSE) {
       (*env)->FatalError(env,
                          "Error while looking up exception class type to throw.");
     } else if ((*env)->ThrowNew(env, TypeNotPresentException,
-                                "Ljava/lang/TypeNotPresentException") < 0) {
+                                "java/lang/TypeNotPresentException") < 0) {
       (*env)->FatalError(env,
                          "Error while throwing TypeNotPresentException that "
                          "occured while attempting to throw exception.");
@@ -35,14 +35,14 @@ Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
                                                              jlong pid) {
   jclass ByteArray = (*env)->FindClass(env, "[B");
   if (ByteArray == NULL) {
-    throw(env, "Ljava/lang/RuntimeException", "Failed to create byte[].");
+    throw(env, "java/lang/RuntimeException", "Failed to create byte[].");
     return NULL;
   }
 
   struct ArgvArgcResult result;
   if (!get_argv_and_argc_of_pid(pid, &result)) {
     errno_t err = errno;
-    throw(env, "Ljava/io/IOException", strerror(err));
+    throw(env, "java/io/IOException", strerror(err));
     return NULL;
   }
 
@@ -51,7 +51,7 @@ Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
   if (array == NULL) {
     free(result.argv);
     free(result.buffer);
-    throw(env, "Ljava/lang/RuntimeException", "Failed to create byte[][].");
+    throw(env, "java/lang/RuntimeException", "Failed to create byte[][].");
     return NULL;
   }
   for (size_t i = 0; i < result.argc; i++) {
@@ -62,7 +62,7 @@ Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
     if (b == NULL) {
       free(result.argv);
       free(result.buffer);
-      throw(env, "Ljava/lang/RuntimeException", "Failed to create byte[].");
+      throw(env, "java/lang/RuntimeException", "Failed to create byte[].");
       return NULL;
     }
     // len must be less than array length `GetArrayLength()`, might need to add
@@ -82,7 +82,7 @@ JNIEXPORT jbyteArray JNICALL Java_cam_narzt_getargv_Getargv_get_1argv_1of_1pid(
   struct GetArgvOptions options = {.pid = pid, .skip = skip, .nuls = nuls};
 
   if (!get_argv_of_pid(&options, &result)) {
-    throw(env, "Ljava/io/IOException", strerror(errno));
+    throw(env, "java/io/IOException", strerror(errno));
     return NULL;
   } else {
     size_t len = result.start_pointer == result.end_pointer
@@ -91,7 +91,7 @@ JNIEXPORT jbyteArray JNICALL Java_cam_narzt_getargv_Getargv_get_1argv_1of_1pid(
     jbyteArray bytes = (*env)->NewByteArray(env, len);
 
     if (bytes == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
-      throw(env, "Ljava/lang/RuntimeException", "Failed to create byte[].");
+      throw(env, "java/lang/RuntimeException", "Failed to create byte[].");
     } else {
       (*env)->SetByteArrayRegion(env, bytes, 0, len, result.start_pointer);
     }
