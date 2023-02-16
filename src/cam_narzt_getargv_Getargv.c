@@ -9,22 +9,22 @@ Throwing can itself fail in many annoying ways so I extracted the logic to
 here and fatal if the madness gets too bad
  */
 void throw(JNIEnv * env, char *fqn, char *msg) {
-  jclass IOException = (*env)->FindClass(env, fqn);
-  if (IOException == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
+  jclass ExceptionClass = (*env)->FindClass(env, fqn);
+  if (ExceptionClass == NULL && (*env)->ExceptionCheck(env) == JNI_FALSE) {
     // error while looking up error type
     jclass TypeNotPresentException =
         (*env)->FindClass(env, "Ljava/lang/TypeNotPresentException");
     if (TypeNotPresentException == NULL &&
         (*env)->ExceptionCheck(env) == JNI_FALSE) {
       (*env)->FatalError(env,
-                         "Error while looking up IOException type to throw.");
+                         "Error while looking up exception class type to throw.");
     } else if ((*env)->ThrowNew(env, TypeNotPresentException,
                                 "Ljava/lang/TypeNotPresentException") < 0) {
       (*env)->FatalError(env,
                          "Error while throwing TypeNotPresentException that "
-                         "occured while attempting to throw IOException.");
+                         "occured while attempting to throw exception.");
     }
-  } else if ((*env)->ThrowNew(env, IOException, msg) < 0) {
+  } else if ((*env)->ThrowNew(env, ExceptionClass, msg) < 0) {
     (*env)->FatalError(env, "Error while throwing Exception.");
   }
 }
