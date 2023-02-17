@@ -1,0 +1,46 @@
+name: Java
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    name: Ruby ${{ matrix.java }}
+
+    strategy:
+      matrix:
+        ruby:
+          - '11'
+          - '17'
+          - '19'
+# https://www.oracle.com/java/technologies/java-se-support-roadmap.html
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: getargv/getargv
+        path: getargv
+        token: ${{ secrets.GH_PAT }}
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
+    - uses: actions/checkout@v3
+      with:
+        path: getargv.java
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: 'temurin'
+        cache: maven
+        working-directory: getargv.java
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      working-directory: getargv.java
+    - name: Test with Maven
+      run: mvn -B test --file pom.xml
+      working-directory: getargv.java
