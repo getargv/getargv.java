@@ -16,8 +16,8 @@ void throw(JNIEnv * env, char *fqn, const char *msg) {
         (*env)->FindClass(env, "java/lang/TypeNotPresentException");
     if (TypeNotPresentException == NULL &&
         (*env)->ExceptionCheck(env) == JNI_FALSE) {
-      (*env)->FatalError(env,
-                         "Error while looking up exception class type to throw.");
+      (*env)->FatalError(
+          env, "Error while looking up exception class type to throw.");
     } else if ((*env)->ThrowNew(env, TypeNotPresentException,
                                 "java/lang/TypeNotPresentException") < 0) {
       (*env)->FatalError(env,
@@ -31,7 +31,7 @@ void throw(JNIEnv * env, char *fqn, const char *msg) {
 
 JNIEXPORT jobjectArray JNICALL
 Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
-                                                             jobject this,
+                                                             jclass class,
                                                              jlong pid) {
   jclass ByteArray = (*env)->FindClass(env, "[B");
   if (ByteArray == NULL) {
@@ -76,7 +76,7 @@ Java_cam_narzt_getargv_Getargv_get_1argv_1and_1argc_1of_1pid(JNIEnv *env,
 }
 
 JNIEXPORT jbyteArray JNICALL Java_cam_narzt_getargv_Getargv_get_1argv_1of_1pid(
-    JNIEnv *env, jobject this, jlong pid, jlong skip, jboolean nuls) {
+    JNIEnv *env, jclass class, jlong pid, jlong skip, jboolean nuls) {
 
   struct ArgvResult result;
   struct GetArgvOptions options = {.pid = pid, .skip = skip, .nuls = nuls};

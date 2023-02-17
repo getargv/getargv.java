@@ -44,7 +44,6 @@ class ArrayHelper {
  */
 @TestInstance(Lifecycle.PER_CLASS)
 public class GetargvTest {
-    static final Getargv getargv = new Getargv();
     static final long pid = ProcessHandle.current().pid();
     static final byte space = " ".getBytes(StandardCharsets.UTF_8)[0];
     static final byte nul = "\0".getBytes(StandardCharsets.UTF_8)[0];
@@ -114,13 +113,13 @@ public class GetargvTest {
     public void asBytesShouldNotThrowWhenCalledCorrectly()
     {
         int len = getArgsAsStrings().length;
-        assertDoesNotThrow(() -> getargv.asBytes(pid));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,0));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,len));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,0,false));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,0,true));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,len,false));
-        assertDoesNotThrow(() -> getargv.asBytes(pid,len,true));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,0));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,len));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,0,false));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,0,true));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,len,false));
+        assertDoesNotThrow(() -> Getargv.asBytes(pid,len,true));
     }
 
     /**
@@ -130,13 +129,13 @@ public class GetargvTest {
     public void asBytesShouldThrowWhenCalledIncorrectly()
     {
         int len = getArgsAsStrings().length;
-        assertThrows(IOException.class, () -> getargv.asBytes(-1));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,-1));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,len+1));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,-1,false));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,-1,true));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,len+1,false));
-        assertThrows(IOException.class, () -> getargv.asBytes(pid,len+1,true));
+        assertThrows(IOException.class, () -> Getargv.asBytes(-1));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,-1));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,len+1));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,-1,false));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,-1,true));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,len+1,false));
+        assertThrows(IOException.class, () -> Getargv.asBytes(pid,len+1,true));
     }
 
     /**
@@ -147,7 +146,7 @@ public class GetargvTest {
     {
         int len = getArgsAsStrings().length;
         for (int i = 0; i < len; i++) {
-            byte[] actual = getargv.asBytes(pid, i, false);
+            byte[] actual = Getargv.asBytes(pid, i, false);
             byte[] expected = concatBytes(nul, i);
             assertArrayEquals(expected, actual);
         }
@@ -161,7 +160,7 @@ public class GetargvTest {
     {
         int len = getArgsAsStrings().length;
         for (int i = 0; i < len; i++) {
-            byte[] actual = getargv.asBytes(pid, i, true);
+            byte[] actual = Getargv.asBytes(pid, i, true);
             byte[] expected = concatBytes(space, i);
             assertArrayEquals(expected, actual);
         }
@@ -173,7 +172,7 @@ public class GetargvTest {
     @Test
     public void asArrayShouldNotThrowWhenCalledCorrectly()
     {
-        assertDoesNotThrow(() -> getargv.asArray(pid));
+        assertDoesNotThrow(() -> Getargv.asArray(pid));
     }
 
     /**
@@ -182,9 +181,9 @@ public class GetargvTest {
     @Test
     public void asArrayShouldThrowWhenCalledIncorrectly()
     {
-        assertThrows(IOException.class, () -> getargv.asArray(-1));//Not exist
-        assertThrows(IOException.class, () -> getargv.asArray(0));//No Perm
-        assertThrows(IOException.class, () -> getargv.asArray(1));//No Perm
+        assertThrows(IOException.class, () -> Getargv.asArray(-1));//Not exist
+        assertThrows(IOException.class, () -> Getargv.asArray(0));//No Perm
+        assertThrows(IOException.class, () -> Getargv.asArray(1));//No Perm
     }
 
     /**
@@ -193,7 +192,7 @@ public class GetargvTest {
     @Test
     public void asArrayShouldReturnCorrectArray() throws IOException
     {
-        byte[][] actual = getargv.asArray(pid);
+        byte[][] actual = Getargv.asArray(pid);
         byte[][] expected = getArgs();
         assertEquals(expected.length,actual.length);
         for(int i = 0; i< expected.length; i++) {
@@ -206,7 +205,7 @@ public class GetargvTest {
      */
     @Test
     public void asArrayOfStringsShouldNotThrowWhenCalledCorrectly(){
-        assertDoesNotThrow(() -> getargv.asArrayOfStrings(pid, StandardCharsets.UTF_8));
+        assertDoesNotThrow(() -> Getargv.asArrayOfStrings(pid, StandardCharsets.UTF_8));
     }
 
     /**
@@ -214,9 +213,9 @@ public class GetargvTest {
      */
     @Test
     public void asArrayOfStringsShouldThrowWhenCalledIncorrectly(){
-        assertThrows(IOException.class, () -> getargv.asArrayOfStrings(-1, StandardCharsets.UTF_8));
-        assertThrows(IOException.class, () -> getargv.asArrayOfStrings(0, StandardCharsets.UTF_8));
-        assertThrows(IOException.class, () -> getargv.asArrayOfStrings(1, StandardCharsets.UTF_8));
+        assertThrows(IOException.class, () -> Getargv.asArrayOfStrings(-1, StandardCharsets.UTF_8));
+        assertThrows(IOException.class, () -> Getargv.asArrayOfStrings(0, StandardCharsets.UTF_8));
+        assertThrows(IOException.class, () -> Getargv.asArrayOfStrings(1, StandardCharsets.UTF_8));
     }
 
     /**
@@ -224,7 +223,7 @@ public class GetargvTest {
      */
     @Test
     public void asArrayOfStringsShouldReturnCorrectArray() throws IOException {
-        String[] actual = getargv.asArrayOfStrings(pid, StandardCharsets.UTF_8);
+        String[] actual = Getargv.asArrayOfStrings(pid, StandardCharsets.UTF_8);
         String[] expected = getArgsAsStrings();
         assertArrayEquals(expected, actual);
     }
@@ -236,13 +235,13 @@ public class GetargvTest {
     public void asStringShouldNotThrowWhenCalledCorrectly()
     {
         int len = getArgsAsStrings().length;
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, 0));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, len));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, 0, false));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, 0, true));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, len, false));
-        assertDoesNotThrow(() -> getargv.asString(pid, StandardCharsets.UTF_8, len, true));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, 0));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, len));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, 0, false));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, 0, true));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, len, false));
+        assertDoesNotThrow(() -> Getargv.asString(pid, StandardCharsets.UTF_8, len, true));
     }
 
     /**
@@ -252,13 +251,13 @@ public class GetargvTest {
     public void asStringShouldThrowWhenCalledIncorrectly()
     {
         int len = getArgsAsStrings().length;
-        assertThrows(IOException.class, () -> getargv.asString(-1, StandardCharsets.UTF_8));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, -1));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, len+1));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, -1, false));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, -1, true));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, len+1, false));
-        assertThrows(IOException.class, () -> getargv.asString(pid, StandardCharsets.UTF_8, len+1, true));
+        assertThrows(IOException.class, () -> Getargv.asString(-1, StandardCharsets.UTF_8));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, -1));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, len+1));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, -1, false));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, -1, true));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, len+1, false));
+        assertThrows(IOException.class, () -> Getargv.asString(pid, StandardCharsets.UTF_8, len+1, true));
     }
 
     /**
@@ -269,7 +268,7 @@ public class GetargvTest {
     {
         int len = getArgsAsStrings().length;
         for (int i = 0; i < len; i++) {
-            String actual = getargv.asString(pid, StandardCharsets.UTF_8, i, false);
+            String actual = Getargv.asString(pid, StandardCharsets.UTF_8, i, false);
             String expected = concatStrings('\0', i);
             assertEquals(expected, actual);
         }
@@ -283,7 +282,7 @@ public class GetargvTest {
     {
         int len = getArgsAsStrings().length;
         for (int i = 0; i < len; i++) {
-            String actual = getargv.asString(pid, StandardCharsets.UTF_8, i, true);
+            String actual = Getargv.asString(pid, StandardCharsets.UTF_8, i, true);
             String expected = concatStrings(' ', i);
             assertEquals(expected, actual);
         }
