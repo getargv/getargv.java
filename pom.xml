@@ -48,7 +48,8 @@
   </ciManagement>
 
   <scm>
-    <connection>scm:git:https://github.com/getargv/getargv.java</connection>
+    <connection>scm:git:https://github.com/getargv/getargv.java.git</connection>
+    <developerConnection>scm:git:ssh://github.com:getargv/getargv.java.git</developerConnection>
     <tag>HEAD</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
@@ -104,6 +105,46 @@
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.3.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <attach>false</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
