@@ -9,11 +9,11 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    name: Ruby ${{ matrix.java }}
+    name: Java ${{ matrix.java }}
 
     strategy:
       matrix:
-        ruby:
+        java:
           - '11'
           - '17'
           - '19'
