@@ -32,7 +32,7 @@
       </roles>
       <timezone>America/Edmonton</timezone>
       <properties>
-        <picUrl>https://</picUrl>
+        <picUrl>https://avatars.githubusercontent.com/u/6243207</picUrl>
       </properties>
     </developer>
   </developers>
@@ -45,21 +45,10 @@
   <ciManagement>
     <system>Github</system>
     <url>https://github.com/getargv/getargv.java/actions</url>
-    <notifiers>
-      <notifier>
-        <type>mail</type>
-        <sendOnError>true</sendOnError>
-        <sendOnFailure>true</sendOnFailure>
-        <sendOnSuccess>false</sendOnSuccess>
-        <sendOnWarning>false</sendOnWarning>
-        <configuration><address>getargv@narzt.cam</address></configuration>
-      </notifier>
-    </notifiers>
   </ciManagement>
 
   <scm>
     <connection>scm:git:https://github.com/getargv/getargv.java</connection>
-    <developerConnection>scm:git:https://github.com/getargv/getargv.java</developerConnection>
     <tag>HEAD</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
@@ -68,7 +57,7 @@
   <licenses>
     <license>
       <name>BSD-3-Clause</name>
-      <url>https://opensource.org/license/bsd-3-clause</url>
+      <url>https://spdx.org/licenses/BSD-3-Clause.html</url>
       <distribution>repo</distribution>
       <comments>Allows: Commercial use, Distribution, Modification, and Private use; License and copyright notice required</comments>
     </license>
