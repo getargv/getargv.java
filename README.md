@@ -1,6 +1,6 @@
 <h1><img src="logo.svg" width="200" alt="getargv"></h1>
 
-[![Java](https://github.com/getargv/getargv.java/actions/workflows/main.yml/badge.svg)](https://github.com/getargv/getargv.java/actions/workflows/main.yml)
+[![Java](https://github.com/getargv/getargv.java/actions/workflows/java.yml/badge.svg)](https://github.com/getargv/getargv.java/actions/workflows/java.yml)
 
 This package allows you to query the arguments of other processes on macOS.
 
