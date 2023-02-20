@@ -6,3 +6,6 @@ compile_commands.json
 .cache
 /obj
 /target
+/.project
+/.classpath
+/.settings
