@@ -12,7 +12,7 @@ build class dylib library:
 	mvn compile
 
 run:
-	mvn -q exec:java -Dexec.args="$$" -Djavah_cli_args=""
+	mvn -q exec:java -Dexec.args="$$$$" -Djavah_cli_args=""
 
 clean:
 	mvn clean
