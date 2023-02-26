@@ -3,7 +3,7 @@ MACOS_VER_MAJOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f1 -d.)
 MACOS_VER_MINOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f2 -d.)
 export MACOSX_DEPLOYMENT_TARGET := $(MACOS_VER_MAJOR).$(MACOS_VER_MINOR)
 
-.PHONY: build run header class library clean test dylib jar package debug
+.PHONY: test build class dylib library run clean jar package debug release
 
 test:
 	mvn test
@@ -22,3 +22,7 @@ jar package:
 
 debug:
 	open https://www.owsiak.org/jni-debugging-extreme-way/
+
+release:
+	mvn release:clean release:prepare
+	mvn release:perform
