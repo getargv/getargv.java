@@ -66,9 +66,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>19</maven.compiler.source>
-    <maven.compiler.target>19</maven.compiler.target>
-    <maven.compiler.release>19</maven.compiler.release>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>$(java.specification.version)</maven.compiler.target>
+    <maven.compiler.release>${java.specification.version}</maven.compiler.release>
     <fqn_underscores>cam_narzt_getargv_Getargv</fqn_underscores>
     <exec.mainClass>${project.groupId}.Main</exec.mainClass>
     <fqn_slashes>cam/narzt/getargv/Getargv</fqn_slashes>
