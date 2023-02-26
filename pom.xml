@@ -96,6 +96,15 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${project.build.directory}/native/lib</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>

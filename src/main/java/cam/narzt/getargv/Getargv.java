@@ -28,7 +28,7 @@ public final class Getargv {
 
     static {
         try {
-            System.loadLibrary("cam_narzt_getargv_Getargv");
+            NativeLoader.loadLibrary("cam_narzt_getargv_Getargv");
         } catch (java.lang.UnsatisfiedLinkError e) {
             System.err.println(e.getMessage());
         }
