@@ -54,6 +54,16 @@
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <licenses>
     <license>
@@ -72,6 +82,7 @@
     <exec.mainClass>${project.groupId}.Main</exec.mainClass>
     <fqn_underscores>cam_narzt_getargv_${project.artifactId}</fqn_underscores>
     <fqn_slashes>cam/narzt/getargv/${project.artifactId}</fqn_slashes>
+    <gpg_keyname>E45D816B</gpg_keyname>
     <javah_cli_args>-h ${project.build.directory}/native/include -d ${java.io.tmpdir} --source-path ${project.build.sourceDirectory} ${project.build.sourceDirectory}/${fqn_slashes}.java</javah_cli_args>
   </properties>
 
@@ -106,6 +117,17 @@
     </resources>
 
     <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.13</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.2.0</version>
@@ -153,6 +175,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <keyname>${gpg_keyname}</keyname>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
