@@ -6,10 +6,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>cam.narzt.getargv</groupId>
-  <artifactId>cam_narzt_getargv_Getargv</artifactId>
+  <artifactId>Getargv</artifactId>
   <version>0.1-SNAPSHOT</version>
 
-  <name>Getargv</name>
+  <name>${project.artifactId}</name>
   <url>https://getargv.narzt.cam</url>
   <description>JNI bindings for libgetargv</description>
   <inceptionYear>2023</inceptionYear>
@@ -69,9 +69,9 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>$(java.specification.version)</maven.compiler.target>
     <maven.compiler.release>${java.specification.version}</maven.compiler.release>
-    <fqn_underscores>cam_narzt_getargv_Getargv</fqn_underscores>
     <exec.mainClass>${project.groupId}.Main</exec.mainClass>
-    <fqn_slashes>cam/narzt/getargv/Getargv</fqn_slashes>
+    <fqn_underscores>cam_narzt_getargv_${project.artifactId}</fqn_underscores>
+    <fqn_slashes>cam/narzt/getargv/${project.artifactId}</fqn_slashes>
     <javah_cli_args>-h ${project.build.directory}/native/include -d ${java.io.tmpdir} --source-path ${project.build.sourceDirectory} ${project.build.sourceDirectory}/${fqn_slashes}.java</javah_cli_args>
   </properties>
 
