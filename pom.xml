@@ -72,8 +72,7 @@
     <fqn_underscores>cam_narzt_getargv_Getargv</fqn_underscores>
     <exec.mainClass>${project.groupId}.Main</exec.mainClass>
     <fqn_slashes>cam/narzt/getargv/Getargv</fqn_slashes>
-    <lib_name>lib${fqn_underscores}.dylib</lib_name>
-    <javah_cli_args>-h ${project.build.directory}/native/include -d ${project.build.directory}/classes ${basedir}/src/main/java/${fqn_slashes}.java</javah_cli_args>
+    <javah_cli_args>-h ${project.build.directory}/native/include -d ${java.io.tmpdir} --source-path ${project.build.sourceDirectory} ${project.build.sourceDirectory}/${fqn_slashes}.java</javah_cli_args>
   </properties>
 
   <dependencyManagement>
