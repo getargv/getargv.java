@@ -2,8 +2,6 @@ package cam.narzt.getargv;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import java.io.IOException;
 import java.io.ByteArrayOutputStream;
@@ -101,7 +99,6 @@ class ArgsHelper {
 /**
  * Unit test for Getargv Class.
  */
-@TestInstance(Lifecycle.PER_CLASS)
 public class GetargvTest {
     static final long pid = ProcessHandle.current().pid();
     static final byte space = " ".getBytes(StandardCharsets.UTF_8)[0];
