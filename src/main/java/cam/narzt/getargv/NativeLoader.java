@@ -7,6 +7,10 @@ import java.io.FileOutputStream;
 import java.io.File;
 import java.util.logging.Logger;
 
+/**
+ * Class to assist in loading a JNI native lib, tries to load from jar but then
+ * falls back to java.library.path if not found.
+ */
 public final class NativeLoader {
 
     private static final Logger LOG = Logger.getLogger(NativeLoader.class.toString());
@@ -15,6 +19,16 @@ public final class NativeLoader {
         throw new AssertionError();
     }
 
+    /**
+     * extended loadLibrary method that looks in the jar as well as the
+     * java.library.path
+     *
+     * @param library the name of the library to load
+     * @since 0.1
+     * @throws UnsatisfiedLinkError when lib not found or cannot load due to linker
+     *                              errors (missing libgetargv on system or bad
+     *                              rpath)
+     */
     public static void loadLibrary(String library) {
         String libraryName = "lib" + library + ".dylib";
         Class<?> callingClass = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
