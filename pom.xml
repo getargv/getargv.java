@@ -287,6 +287,9 @@
         <version>3.0.0-M9</version>
         <configuration>
           <argLine>-Djava.library.path=${project.build.directory}/native/lib</argLine>
+          <excludes>
+            <exclude>**/*TestHelper.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
