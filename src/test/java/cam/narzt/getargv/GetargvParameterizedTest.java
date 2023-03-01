@@ -35,6 +35,8 @@ public class GetargvParameterizedTest {
         assertDoesNotThrow(() -> Getargv.asBytes(pid, skip));
     }
 
+    // The separation of 3 vs 2 arg versions (and 1 arg in non-param test file) is
+    // due to https://github.com/junit-team/junit5/issues/2256
     static Stream<Arguments> asBytesCorrectProvider2() {
         int len = ArgsHelper.getArgsAsStrings().length;
         return Stream.of(
