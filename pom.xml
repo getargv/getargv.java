@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>cam.narzt.getargv</groupId>
   <artifactId>Getargv</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
 
   <name>${project.artifactId}</name>
   <url>https://getargv.narzt.cam</url>
@@ -50,7 +48,7 @@
   <scm>
     <connection>scm:git:https://github.com/getargv/getargv.java.git</connection>
     <developerConnection>scm:git:ssh://github.com/getargv/getargv.java.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>Getargv-0.1</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
@@ -181,8 +179,8 @@
         <version>3.1.0</version>
         <configuration>
           <target>
-            <delete dir="${project.build.directory}/native/lib"/>
-            <mkdir dir="${project.build.directory}/native/lib"/>
+            <delete dir="${project.build.directory}/native/lib" />
+            <mkdir dir="${project.build.directory}/native/lib" />
           </target>
         </configuration>
         <executions>
