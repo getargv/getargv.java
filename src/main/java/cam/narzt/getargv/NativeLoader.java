@@ -33,16 +33,16 @@ public final class NativeLoader {
         String libraryName = "lib" + library + ".dylib";
         Class<?> callingClass = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
                 .getCallerClass();
-        LOG.info("called by class: " + callingClass);
+        LOG.fine("called by class: " + callingClass);
         try (InputStream in = callingClass.getClassLoader().getResourceAsStream(libraryName)) {
             if (in != null) {
-                LOG.info("trying to load: " + libraryName);
+                LOG.fine("trying to load: " + libraryName);
                 System.load(saveLibrary(libraryName, in));
             } else {
                 throw new IOException("No Resource Found");
             }
         } catch (IOException e) {
-            LOG.warning("Could not find library " + library
+            LOG.fine("Could not find library " + library
                     + " as resource, trying fallback lookup through System.loadLibrary");
             System.loadLibrary(library);
         }
@@ -58,9 +58,9 @@ public final class NativeLoader {
         file.deleteOnExit();
 
         try (OutputStream out = new FileOutputStream(file)) {
-            LOG.info("trying to save to: " + file.getAbsolutePath());
+            LOG.fine("trying to save to: " + file.getAbsolutePath());
             in.transferTo(out);
-            LOG.info("Saved libfile: " + file.getAbsoluteFile());
+            LOG.fine("Saved libfile: " + file.getAbsoluteFile());
             return file.getAbsolutePath();
         }
     }
