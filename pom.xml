@@ -107,6 +107,12 @@
   <build>
     <resources>
       <resource>
+        <directory>${project.build.sourceDirectory}/../native</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+      </resource>
+      <resource>
         <directory>${project.build.directory}/native/lib</directory>
         <includes>
           <include>**</include>
@@ -186,7 +192,7 @@
         <executions>
           <execution>
             <id>createLibDir</id>
-            <phase>process-resources</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>run</goal>
             </goals>
@@ -244,7 +250,7 @@
         <executions>
           <execution>
             <id>dylib</id>
-            <phase>compile</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>initialize</goal>
               <goal>compile</goal>

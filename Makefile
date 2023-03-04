@@ -3,7 +3,7 @@ MACOS_VER_MAJOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f1 -d.)
 MACOS_VER_MINOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f2 -d.)
 export MACOSX_DEPLOYMENT_TARGET := $(MACOS_VER_MAJOR).$(MACOS_VER_MINOR)
 
-.PHONY: test build class dylib library run clean jar package debug release
+.PHONY: test build class dylib library run clean jar package debug release install
 
 test:
 	mvn test
@@ -16,6 +16,7 @@ run:
 
 clean:
 	mvn clean
+	@rm pom.xml.* release.properties
 
 jar package:
 	mvn package
@@ -26,3 +27,6 @@ debug:
 release:
 	mvn release:clean release:prepare
 	mvn release:perform
+
+install:
+	mvn install
