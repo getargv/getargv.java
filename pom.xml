@@ -52,6 +52,14 @@
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
+  <profiles>
+    <profile>
+      <id>maven-central</id>
+      <activation>
+        <property>
+          <name>!useGithub</name>
+        </property>
+      </activation>
       <distributionManagement>
         <snapshotRepository>
           <id>ossrh</id>
@@ -62,6 +70,23 @@
           <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
       </distributionManagement>
+    </profile>
+    <profile>
+      <id>github</id>
+      <activation>
+        <property>
+          <name>useGithub</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <distributionManagement>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/getargv/getargv.java</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
 
   <licenses>
     <license>
