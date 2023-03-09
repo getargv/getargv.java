@@ -52,16 +52,16 @@
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+          <id>ossrh</id>
+          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
 
   <licenses>
     <license>
@@ -108,12 +108,6 @@
     <resources>
       <resource>
         <directory>${project.build.sourceDirectory}/../native</directory>
-        <includes>
-          <include>**</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${project.build.directory}/native/lib</directory>
         <includes>
           <include>**</include>
         </includes>
@@ -183,21 +177,6 @@
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>3.1.0</version>
-        <configuration>
-          <target>
-            <delete dir="${project.build.directory}/native/lib" />
-            <mkdir dir="${project.build.directory}/native/lib" />
-          </target>
-        </configuration>
-        <executions>
-          <execution>
-            <id>createLibDir</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -208,7 +187,7 @@
           <jdkIncludePath>${java.home}/include</jdkIncludePath>
           <sources>
             <source>
-              <directory>${basedir}/src/main/native</directory>
+              <directory>${project.build.sourceDirectory}/../native</directory>
               <fileNames>
                 <fileName>${fqn_underscores}.c</fileName>
               </fileNames>
@@ -243,14 +222,14 @@
           <linkerEndOptions>
             <linkerEndOption>-lgetargv</linkerEndOption>
           </linkerEndOptions>
-          <linkerOutputDirectory>${project.build.directory}/native/lib</linkerOutputDirectory>
+          <linkerOutputDirectory>${project.build.outputDirectory}</linkerOutputDirectory>
           <linkerFinalName>lib${fqn_underscores}</linkerFinalName>
           <linkerFinalNameExt>dylib</linkerFinalNameExt>
         </configuration>
         <executions>
           <execution>
             <id>dylib</id>
-            <phase>generate-resources</phase>
+            <phase>compile</phase>
             <goals>
               <goal>initialize</goal>
               <goal>compile</goal>
@@ -287,7 +266,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M9</version>
         <configuration>
-          <argLine>-Djava.library.path=${project.build.directory}/native/lib</argLine>
+          <argLine>-Djava.library.path=${project.build.outputDirectory}</argLine>
           <excludes>
             <exclude>**/*TestHelper.java</exclude>
           </excludes>

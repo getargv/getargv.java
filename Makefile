@@ -16,7 +16,7 @@ run:
 
 clean:
 	mvn clean
-	@rm pom.xml.* release.properties
+	@rm -f pom.xml.* release.properties
 
 jar package:
 	mvn package
