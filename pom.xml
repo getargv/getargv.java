@@ -60,6 +60,9 @@
           <name>!useGithub</name>
         </property>
       </activation>
+      <properties>
+        <pinentry-mode>ask</pinentry-mode>
+      </properties>
       <distributionManagement>
         <snapshotRepository>
           <id>ossrh</id>
@@ -76,9 +79,11 @@
       <activation>
         <property>
           <name>useGithub</name>
-          <value>true</value>
         </property>
       </activation>
+      <properties>
+        <pinentry-mode>loopback</pinentry-mode>
+      </properties>
       <distributionManagement>
         <repository>
           <id>github</id>
@@ -204,6 +209,10 @@
         </executions>
         <configuration>
           <keyname>${gpg_keyname}</keyname>
+          <gpgArguments>
+            <arg>--pinentry-mode</arg>
+            <arg>${pinentry-mode}</arg>
+          </gpgArguments>
         </configuration>
       </plugin>
       <plugin>
