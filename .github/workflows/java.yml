@@ -14,10 +14,12 @@ jobs:
     strategy:
       matrix:
         java:
-          - '11' # EOL: 2023-09
           - '17' # EOL: 2026-09
-          - '20' # EOL: 2023-09
-         #- '21' # REL: 2023-09
+          - '21' # EOL: 2028-09
+         #- '22' # REL: 2024-03
+         #- '23' # REL: 2024-09
+         #- '24' # REL: 2025-03
+         #- '25' # REL: 2025-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
     steps:
     - uses: actions/checkout@v3

@@ -99,7 +99,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>$(java.specification.version)</maven.compiler.target>
     <maven.compiler.release>${java.specification.version}</maven.compiler.release>
     <exec.mainClass>${project.groupId}.Main</exec.mainClass>
