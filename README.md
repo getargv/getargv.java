@@ -12,7 +12,7 @@ Add the package to your project's pom.xml by adding:
 <dependency>
   <groupId>cam.narzt.getargv</groupId>
   <artifactId>Getargv</artifactId>
-  <version>0.1</version>
+  <version>0.4</version>
 </dependency>
 ```
 
