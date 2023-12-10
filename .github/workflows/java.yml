@@ -49,6 +49,9 @@ jobs:
       working-directory: getargv.java
 
   release:
+    permissions:
+      contents: write
+      packages: write
     needs: [ build ]
     runs-on: macos-latest
     # maven created a new tag but we only trigger on 'pre-' prefixed tags in 'on:' clause above
