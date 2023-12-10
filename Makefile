@@ -28,5 +28,9 @@ release:
 	mvn release:clean release:prepare
 	mvn release:perform
 
+release_github:
+	mvn -DuseGithub=true release:clean release:prepare
+	mvn -DuseGithub=true release:perform
+
 install:
 	mvn install

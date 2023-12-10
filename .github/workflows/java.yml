@@ -77,7 +77,7 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
     - name: Publish package to Maven Central
-      run: mvn --batch-mode deploy
+      run: make release
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
@@ -92,7 +92,7 @@ jobs:
         check-latest: true
         server-id: github
     - name: Publish package to GitHub Packages
-      run: mvn -DuseGithub=true --batch-mode deploy
+      run: make release_github
       env:
         GITHUB_TOKEN: ${{ github.token }}
       working-directory: getargv.java
