@@ -51,6 +51,7 @@ jobs:
   release:
     needs: [ build ]
     runs-on: macos-latest
+    # maven created a new tag but we only trigger on 'pre-' prefixed tags in 'on:' clause above
     if: ${{ github.ref_type == 'tag' }}
     steps:
     - uses: actions/checkout@v3
@@ -63,6 +64,8 @@ jobs:
       working-directory: getargv
     - uses: actions/checkout@v3
       with:
+        # maven needs to be on a branch, not a tag, but we trigger on a tag...
+        ref: main
         path: getargv.java
     - name: Set up JDK
       uses: actions/setup-java@v3
