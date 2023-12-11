@@ -24,7 +24,7 @@
       <email>getargv@narzt.cam</email>
       <url>https://getargv.narzt.cam</url>
       <organization>Getargv</organization>
-      <organizationUrl>https://https://github.com/getargv</organizationUrl>
+      <organizationUrl>https://github.com/getargv</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -47,7 +47,7 @@
 
   <scm>
     <connection>scm:git:https://github.com/getargv/getargv.java.git</connection>
-    <developerConnection>scm:git:ssh://github.com/getargv/getargv.java.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/getargv/getargv.java.git</developerConnection>
     <tag>HEAD</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>

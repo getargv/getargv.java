@@ -23,7 +23,7 @@ jobs:
          #- '25' # REL: 2025-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         repository: getargv/getargv
         path: getargv
@@ -31,7 +31,7 @@ jobs:
     - name: Build libgetargv
       run: make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: getargv.java
     - name: Set up JDK ${{ matrix.java }}
@@ -57,7 +57,7 @@ jobs:
     # maven created a new tag but we only trigger on 'pre-' prefixed tags in 'on:' clause above
     if: ${{ github.ref_type == 'tag' }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         repository: getargv/getargv
         path: getargv
@@ -65,7 +65,7 @@ jobs:
     - name: Build libgetargv
       run: make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         # maven needs to be on a branch, not a tag, but we trigger on a tag...
         ref: main
