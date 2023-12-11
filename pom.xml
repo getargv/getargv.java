@@ -5,7 +5,7 @@
 
   <groupId>cam.narzt.getargv</groupId>
   <artifactId>Getargv</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.4</version>
 
   <name>${project.artifactId}</name>
   <url>https://getargv.narzt.cam</url>
@@ -48,7 +48,7 @@
   <scm>
     <connection>scm:git:https://github.com/getargv/getargv.java.git</connection>
     <developerConnection>scm:git:https://github.com/getargv/getargv.java.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>Getargv-0.4</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
@@ -149,7 +149,8 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>3.0.0-M7</version>
         <configuration>
-          <scmDevelopmentCommitComment>@{prefix} prepare for next development iteration&#x0A; [ci skip]</scmDevelopmentCommitComment>
+          <scmDevelopmentCommitComment>@{prefix} prepare for next development iteration
+ [ci skip]</scmDevelopmentCommitComment>
         </configuration>
       </plugin>
       <plugin>
