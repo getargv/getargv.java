@@ -98,7 +98,7 @@ jobs:
         check-latest: true
         server-id: github
     - name: Publish package to GitHub Packages
-      run: make release_github
+      run: mvn -DuseGithub=true --batch-mode deploy
       env:
         GITHUB_TOKEN: ${{ github.token }}
       working-directory: getargv.java
