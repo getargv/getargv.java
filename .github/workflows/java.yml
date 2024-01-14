@@ -3,7 +3,6 @@ name: Java
 on:
   push:
     branches: [ "main" ]
-    tags: [ 'pre-*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -35,7 +34,7 @@ jobs:
       with:
         path: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
@@ -54,8 +53,6 @@ jobs:
       packages: write
     needs: [ build ]
     runs-on: macos-latest
-    # maven created a new tag but we only trigger on 'pre-' prefixed tags in 'on:' clause above
-    if: ${{ github.ref_type == 'tag' }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -67,11 +64,9 @@ jobs:
       working-directory: getargv
     - uses: actions/checkout@v4
       with:
-        # maven needs to be on a branch, not a tag, but we trigger on a tag...
-        ref: main
         path: getargv.java
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -90,7 +85,7 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       working-directory: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -102,3 +97,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       working-directory: getargv.java
+    - run: cat ~/.m2/settings.xml && false
+      if: ${{ failure() }}
