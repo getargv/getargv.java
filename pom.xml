@@ -5,7 +5,7 @@
 
   <groupId>cam.narzt.getargv</groupId>
   <artifactId>Getargv</artifactId>
-  <version>0.5-SNAPSHOT</version>
+  <version>0.5</version>
 
   <name>${project.artifactId}</name>
   <url>https://getargv.narzt.cam</url>
@@ -48,7 +48,7 @@
   <scm>
     <connection>scm:git:https://github.com/getargv/getargv.java.git</connection>
     <developerConnection>scm:git:https://github.com/getargv/getargv.java.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>Getargv-0.5</tag>
     <url>https://github.com/getargv/getargv.java</url>
   </scm>
 
