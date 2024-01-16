@@ -92,8 +92,8 @@ jobs:
         cache: maven
         check-latest: true
         server-id: github
-    - name: fix artifactid & groupid in pom
-      run: sed -e 's/artifactId>Getargv</artifactId>getargv</g' -e 's/groupId>cam.narzt.getargv</groupId>github.getargv</g' -i '' pom.xml
+    - name: fix artifactid for github package registry
+      run: make ghp
       working-directory: getargv.java
     - name: Publish package to GitHub Packages
       run: mvn -DuseGithub=true --batch-mode deploy

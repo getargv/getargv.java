@@ -30,3 +30,9 @@ release:
 
 install:
 	mvn install
+
+ghp:
+	sed -e 's/artifactId>Getargv</artifactId>getargv</g' -i '' pom.xml
+	sed -e 's/Getargv/getargv/g' -i '' src/main/java/cam/narzt/getargv/Getargv.java src/main/native/cam_narzt_getargv_Getargv.c src/main/java/cam/narzt/getargv/Main.java
+	mv src/main/java/cam/narzt/getargv/{G,g}etargv.java
+	mv src/main/native/cam_narzt_getargv_{G,g}etargv.c
