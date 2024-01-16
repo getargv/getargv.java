@@ -3,6 +3,10 @@ MACOS_VER_MAJOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f1 -d.)
 MACOS_VER_MINOR			:= $(shell echo $(MACOS_VER_NUM) | cut -f2 -d.)
 export MACOSX_DEPLOYMENT_TARGET := $(MACOS_VER_MAJOR).$(MACOS_VER_MINOR)
 
+# https://s01.oss.sonatype.org/#view-repositories;staging~browsestorage~cam
+# https://repo1.maven.org/maven2/cam/narzt/getargv/Getargv/
+# https://central.sonatype.com/artifact/cam.narzt.getargv/Getargv
+
 .PHONY: test build class dylib library run clean jar package debug release install
 
 test:
