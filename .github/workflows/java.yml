@@ -17,8 +17,7 @@ jobs:
         # when you edit this be sure to edit "release" job's too
           - '17' # EOL: 2026-09
           - '21' # EOL: 2028-09
-          - '22' # EOL: 2024-09
-         #- '23' # REL: 2024-09
+          - '23' # EOL: 2030-09
          #- '24' # REL: 2025-03
          #- '25' # REL: 2025-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
