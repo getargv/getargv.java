@@ -21,6 +21,7 @@ jobs:
           - '24' # EOL: 2025-09
          #- '25' # REL: 2025-09  EOL: 2032-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
+         # see built temurin builds at https://adoptium.net/blog/
     steps:
     - uses: actions/checkout@v4
       with:
