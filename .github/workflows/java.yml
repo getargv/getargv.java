@@ -14,12 +14,12 @@ jobs:
     strategy:
       matrix:
         java:
-        # when you edit this be sure to edit "release" job's too
+        # when you remove the lowest version be sure to edit "release" job's too, and pom.xml
           - '17' # EOL: 2026-09
           - '21' # EOL: 2028-09
           - '23' # EOL: 2030-09
-         #- '24' # REL: 2025-03
-         #- '25' # REL: 2025-09
+          - '24' # EOL: 2025-09
+         #- '25' # REL: 2025-09  EOL: 2032-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
     steps:
     - uses: actions/checkout@v4
