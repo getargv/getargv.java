@@ -20,6 +20,12 @@ If maven is not being used to manage dependencies, more installation instruction
 
 ## Usage
 
+You will soon need to pass a flag to Java to enable loading native code:
+```bash
+java --enable-native-access=ALL-UNNAMED
+```
+
+Use in Java code:
 ```java
 Getargv.asBytes(some_process_id) #=> "arg0\x00arg1"
 Getargv.asArray(some_process_id) #=> ["arg0","arg1"]
