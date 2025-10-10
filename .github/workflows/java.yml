@@ -90,8 +90,8 @@ jobs:
     - name: Publish package to Maven Central
       run: make release
       env:
-        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       working-directory: getargv.java
     - name: Set up JDK ${{ matrix.java }}
