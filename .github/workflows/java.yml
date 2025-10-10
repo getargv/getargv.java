@@ -18,12 +18,11 @@ jobs:
           - '17' # EOL: 2026-09
           - '21' # EOL: 2028-09
           - '23' # EOL: 2030-09
-          - '24' # EOL: 2025-09
-         #- '25' # REL: 2025-09  EOL: 2032-09
+          - '25' # EOL: 2032-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
          # see built temurin builds at https://adoptium.net/blog/
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         repository: getargv/getargv
         path: getargv
@@ -34,11 +33,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         path: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
@@ -62,7 +61,7 @@ jobs:
         java:
           - '17' # see above for versions
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         repository: getargv/getargv
         path: getargv
@@ -73,11 +72,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         path: getargv.java
     - name: Set up JDK
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
@@ -96,7 +95,7 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       working-directory: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
