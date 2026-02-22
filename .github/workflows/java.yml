@@ -22,7 +22,7 @@ jobs:
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
          # see built temurin builds at https://adoptium.net/blog/
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         repository: getargv/getargv
         path: getargv
@@ -33,7 +33,7 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: getargv.java
     - name: Set up JDK ${{ matrix.java }}
@@ -61,7 +61,7 @@ jobs:
         java:
           - '17' # see above for versions
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         repository: getargv/getargv
         path: getargv
@@ -72,7 +72,7 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: getargv.java
     - name: Set up JDK
