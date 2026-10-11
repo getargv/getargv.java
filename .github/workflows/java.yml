@@ -15,14 +15,15 @@ jobs:
       matrix:
         java:
         # when you remove the lowest version be sure to edit "release" job's too, and pom.xml
-          - '17' # EOL: 2026-09
           - '21' # EOL: 2028-09
-          - '23' # EOL: 2030-09
-          - '25' # EOL: 2032-09
+          - '25' # EOL: 2030-09
+          - '27' # EOL: 2027-03
+          #- '28' # EOL: 2027-09 Rel 2027-03
+          #- '29' # EOL: 2032-09 Rel 2027-09
          # see supported java release schedule at https://www.oracle.com/java/technologies/java-se-support-roadmap.html
          # see built temurin builds at https://adoptium.net/blog/
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         repository: getargv/getargv
         path: getargv
@@ -33,11 +34,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         path: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
@@ -61,7 +62,7 @@ jobs:
         java:
           - '17' # see above for versions
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         repository: getargv/getargv
         path: getargv
@@ -72,11 +73,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         path: getargv.java
     - name: Set up JDK
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
@@ -95,7 +96,7 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       working-directory: getargv.java
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
