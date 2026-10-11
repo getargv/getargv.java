@@ -22,6 +22,10 @@ clean:
 	mvn clean
 	@rm -f pom.xml.* release.properties
 
+check:
+	mvn versions:use-latest-releases
+	mvn versions:display-plugin-updates
+
 jar package:
 	mvn package
 
