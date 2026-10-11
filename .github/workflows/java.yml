@@ -60,7 +60,7 @@ jobs:
     strategy:
       matrix:
         java:
-          - '17' # see above for versions
+          - '21' # see above for versions
     steps:
     - uses: actions/checkout@v7
       with:
