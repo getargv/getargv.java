@@ -88,6 +88,16 @@ jobs:
         server-password: MAVEN_PASSWORD
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+
+    - name: Diagnose GPG configuration
+      run: |
+        echo "GNUPGHOME=${GNUPGHOME:-<unset>}"
+        gpg --version
+        gpgconf --list-dirs agent-socket
+        gpgconf --list-options gpg-agent | grep loopback || true
+        ls -la "${GNUPGHOME:-$HOME/.gnupg}"
+        cat "${GNUPGHOME:-$HOME/.gnupg}/gpg-agent.conf" 2>/dev/null || true
+
     - name: Publish package to Maven Central
       run: make release
       env:
