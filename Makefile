@@ -7,7 +7,9 @@ export MACOSX_DEPLOYMENT_TARGET := $(MACOS_VER_MAJOR).$(MACOS_VER_MINOR)
 # https://repo1.maven.org/maven2/cam/narzt/getargv/Getargv/
 # https://central.sonatype.com/artifact/cam.narzt.getargv/Getargv
 
-.PHONY: test build class dylib library run clean jar package debug release install
+SHELL := /bin/bash
+
+.PHONY: test build class dylib library run clean check jar package debug release release-prepare release-tag install ghp
 
 test:
 	mvn test
@@ -32,9 +34,14 @@ jar package:
 debug:
 	open https://www.owsiak.org/jni-debugging-extreme-way/
 
-release:
+release-prepare:
 	mvn release:clean release:prepare
+
+release: release-tag
 	mvn release:perform
+
+release-tag: release-prepare
+	echo "tag=$$(sed -n 's/^scm\.tag=//p' release.properties | head -n 1)" >> "$${GITHUB_OUTPUT:-/dev/stdout}"
 
 install:
 	mvn install
